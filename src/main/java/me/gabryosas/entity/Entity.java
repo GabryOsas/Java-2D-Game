@@ -1,5 +1,7 @@
 package me.gabryosas.entity;
 
 public class Entity {
-    private String ciao;
+    public int x, y;
+    public int speed;
+
 }

@@ -1,5 +1,7 @@
 package me.gabryosas;
 
+import me.gabryosas.entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Screen settings
     final int originalTileSize = 16; //16x16 tile
     final int scale = 3;
-    final int tileSize = originalTileSize * scale; // 48x48
+   public final int tileSize = originalTileSize * scale; // 48x48
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol; // 768 pixels
@@ -17,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //serve per rendere il nostro gioco vivo, ex 60 FPS = la finestra viene aggiornata 60 volte in un secondo
+    Player player = new Player(this, keyH);
 
     //parametri base per il giocatore
     int playerX = 100;
@@ -87,34 +90,19 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update(){
-
+        player.update();
         /*Y se aumanta va sotto perché la coordinata di base si trova a (0; 0)
         X aumenta va a destra*/
-
-        if (keyH.upPressed) {
-            playerY -= playerSpeed;
-        }
-        if (keyH.downPressed) {
-            playerY += playerSpeed;
-        }
-        if (keyH.rightPressed) {
-            playerX += playerSpeed;
-        }
-        if (keyH.leftPressed) {
-            playerX -= playerSpeed;
-        }
     }
     //g è il nostro paint tool
     public void paintComponent(Graphics g) { //metodo predefinito in Java
 
         super.paintComponent(g);
-
         /*è un'estensione della classe Graphics che ci consente di avere
         un controllo sulla geometria, coordinate, colori e testo*/
         Graphics2D g2 = (Graphics2D) g; //ha più funzioni
 
-        g2.setColor(Color.WHITE);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose(); //funziona anche senza questo metodo, ma così salviamo della memoria, perché rilascia le risorse che stiamo usando
 

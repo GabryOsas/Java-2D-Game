@@ -1,0 +1,44 @@
+package me.gabryosas.entity;
+
+import me.gabryosas.GamePanel;
+import me.gabryosas.KeyHandler;
+
+import java.awt.*;
+
+public class Player extends Entity {
+    GamePanel gp;
+    KeyHandler keyH;
+
+    public Player(GamePanel gp, KeyHandler keyH){
+        this.gp = gp;
+        this.keyH = keyH;
+    }
+    public  void setDefaultValues(){
+        x = 100;
+        y = 100;
+        speed = 4;
+    }
+    public void update(){
+
+        /*Y se aumanta va sotto perché la coordinata di base si trova a (0; 0)
+        X aumenta va a destra*/
+
+        if (keyH.upPressed) {
+           x-= speed;
+        }
+        if (keyH.downPressed) {
+            x += speed;
+        }
+        if (keyH.rightPressed) {
+            x += speed;
+        }
+        if (keyH.leftPressed) {
+            x -= speed;
+        }
+    }
+    public void draw(Graphics2D g2){
+        g2.setColor(Color.WHITE);
+
+        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+    }
+}
