@@ -12,6 +12,7 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     String[] names = {"down",  "up", "right", "left", "idle"};
+    final int ANIMATION = 2;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -29,8 +30,7 @@ public class Player extends Entity {
 
     public void getPlayerImage(){
         try {
-            int animation = 2;
-            for (int i = 0, j = 0, z = 0, y = 1; i < names.length * animation; i++) {
+            for (int i = 0, j = 0, z = 0, y = 1; i < names.length * ANIMATION; i++) {
                 images.add(ImageIO.read(getClass().getResourceAsStream("/player/boy_" + names[j] + "_" + y + ".png")));
                 z++;
                 y++;
@@ -84,11 +84,13 @@ public class Player extends Entity {
 
         BufferedImage image = null;
 
-        int[] values = new int[2];
+        //TODO rendere il sistema dinamico in base ad ANIMATION
+
+        int[] values = new int[ANIMATION];
         for (int i = 0; i < names.length; i++) {
             if (direction.equalsIgnoreCase(names[i])){
-                values[0] = i * 2;
-                values[1] = (i * 2) + 1;
+                values[0] = i * ANIMATION;
+                values[1] = (i * ANIMATION) + 1;
             }
         }
         if (spriteNum == 1) {
