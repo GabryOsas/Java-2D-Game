@@ -1,6 +1,7 @@
 package me.gabryosas;
 
 import me.gabryosas.entity.Player;
+import me.gabryosas.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,20 +12,18 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16; //16x16 tile
     final int scale = 3;
    public final int tileSize = originalTileSize * scale; // 48x48
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
     int FPS = 60;
 
+    TileManager tileManager = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //serve per rendere il nostro gioco vivo, ex 60 FPS = la finestra viene aggiornata 60 volte in un secondo
     Player player = new Player(this, keyH);
 
     //parametri base per il giocatore
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -102,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable{
         un controllo sulla geometria, coordinate, colori e testo*/
         Graphics2D g2 = (Graphics2D) g; //ha più funzioni
 
+        tileManager.draw(g2); //prima così creiamo dei layer ;P
         player.draw(g2);
 
         g2.dispose(); //funziona anche senza questo metodo, ma così salviamo della memoria, perché rilascia le risorse che stiamo usando

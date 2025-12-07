@@ -8,7 +8,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Java 2D Game");
+        window.setTitle("Ti amo tanto amore");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
-    String[] names = {"down",  "up", "right", "left", "idle"};
+    final String[] names = {"down",  "up", "right", "left", "idle"};
     final int ANIMATION = 2;
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -25,7 +25,7 @@ public class Player extends Entity {
         x = 100;
         y = 100;
         speed = 4;
-        direction = "down";
+        direction = names[0];
     }
 
     public void getPlayerImage(){
@@ -34,11 +34,11 @@ public class Player extends Entity {
                 images.add(ImageIO.read(getClass().getResourceAsStream("/player/boy_" + names[j] + "_" + y + ".png")));
                 z++;
                 y++;
-                if (z == 2) {
+                if (z == ANIMATION) {
                     j++;
                     z = 0;
                 }
-                if (y == 3) {
+                if (y > ANIMATION) {
                     y = 1;
                 }
             }
@@ -70,11 +70,18 @@ public class Player extends Entity {
 
         spriteCounter++;
         if (spriteCounter > 12){
-            if (spriteNum == 1) {
+
+            if (spriteNum == ANIMATION) {
+                spriteNum = 1;
+            } else {
+                spriteNum++;
+            }
+
+            /*if (spriteNum == 1) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {
                 spriteNum = 1;
-            }
+            }*/
             spriteCounter = 0;
         }
     }
@@ -87,17 +94,17 @@ public class Player extends Entity {
         //TODO rendere il sistema dinamico in base ad ANIMATION
 
         int[] values = new int[ANIMATION];
-        for (int i = 0; i < names.length; i++) {
-            if (direction.equalsIgnoreCase(names[i])){
-                values[0] = i * ANIMATION;
-                values[1] = (i * ANIMATION) + 1;
+
+        for (int i = 0, j = 0; i < names.length; i++) {
+            if (direction.equalsIgnoreCase(names[i])) {
+                for (int z = 0; z < values.length; z++) {
+                    values[z] = (i * ANIMATION) + j;
+                    j++;
+                }
             }
         }
-        if (spriteNum == 1) {
-            image = images.get(values[0]);
-        } else {
-            image = images.get(values[1]);
-        }
+
+        image = images.get(values[spriteNum - 1]);
 
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
