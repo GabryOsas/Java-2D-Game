@@ -2,4 +2,12 @@
 /shelf/
 /workspace.xml
 
-git rm --cached src/main/java/me/gabryosas/Test.java
+# File di test
+src/main/java/me/gabryosas/Test.java
+
+# Cartella target di Maven
+target/
+
+# File IDE IntelliJ
+.idea/
+*.iml
