@@ -1,0 +1,11 @@
+src/main/java/me/gabryosas/Test.java
+
+target/
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+.DS_Store
+Thumbs.db

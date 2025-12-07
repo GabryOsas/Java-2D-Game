@@ -1,13 +1,3 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-
-# File di test
-src/main/java/me/gabryosas/Test.java
-
-# Cartella target di Maven
-target/
-
-# File IDE IntelliJ
-.idea/
-*.iml
