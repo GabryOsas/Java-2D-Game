@@ -13,17 +13,22 @@ public class Player extends Entity {
     KeyHandler keyH;
     final String[] names = {"down",  "up", "right", "left", "idle"};
     final int ANIMATION = 2;
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
 
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         setDefaultValues();
         getPlayerImage();
     }
     public  void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = (14 * gp.tileSize);
+        worldY = (17 * gp.tileSize);
         speed = 4;
         direction = names[0];
     }
@@ -54,16 +59,16 @@ public class Player extends Entity {
 
         if (keyH.upPressed) {
             direction = "up";
-           y -= speed;
+            worldY -= speed;
         } else if (keyH.downPressed) {
             direction = "down";
-            y += speed;
+            worldY += speed;
         } else if (keyH.rightPressed) {
             direction = "right";
-            x += speed;
+            worldX += speed;
         } else if (keyH.leftPressed) {
             direction = "left";
-            x -= speed;
+            worldX -= speed;
         } else {
             direction = "idle";
         }
@@ -106,6 +111,6 @@ public class Player extends Entity {
 
         image = images.get(values[spriteNum - 1]);
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
