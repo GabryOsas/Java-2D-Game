@@ -23,6 +23,8 @@ public class Player extends Entity {
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
+        solidArea = new Rectangle(8, 16, 32, 32); //hitbox
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -59,18 +61,34 @@ public class Player extends Entity {
 
         if (keyH.upPressed) {
             direction = "up";
-            worldY -= speed;
         } else if (keyH.downPressed) {
             direction = "down";
-            worldY += speed;
         } else if (keyH.rightPressed) {
             direction = "right";
-            worldX += speed;
         } else if (keyH.leftPressed) {
             direction = "left";
-            worldX -= speed;
         } else {
             direction = "idle";
+        }
+
+        collisionOn = false;
+        gp.cChecker.checkTile(this); //controlliamo se il giocatore sta colpendo qualcosa (collision)
+
+        if (!collisionOn) {
+            switch (direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+            }
         }
 
         spriteCounter++;

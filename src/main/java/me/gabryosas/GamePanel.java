@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int worldHeight = tileSize * maxWorldRow;
     int FPS = 60;
 
+    public CollisionChecker cChecker = new CollisionChecker(this);
     TileManager tileManager = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; //serve per rendere il nostro gioco vivo, ex 60 FPS = la finestra viene aggiornata 60 volte in un secondo
